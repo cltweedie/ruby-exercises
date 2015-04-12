@@ -1,13 +1,14 @@
 # Programme to accept a number as an input, and output the number converted to roman numerals
 # This version uses modern roman numerals - where IX is nine rather than VIIII
+# The method currently seems long and not very DRY - may be able to refactor and should probably be using modulus
 
 class Numerals
   def self.convert_integer(int)
     numeral_string = ""                   # set the string as empty to start with
     if int >= 1000                        # if the number is more than or equal 100 we need some Ms
       for thousands in 1..int/1000        # so for each thousand in the nunber
-        int -= 1000                       # subtract it
-        numeral_string += "M"             # and add an 'M' to the string
+        int -= 1000                         # subtract it
+        numeral_string += "M"               # and add an 'M' to the string
       end
     end
     if int >= 500                         # do the same for 500s
@@ -110,4 +111,4 @@ class Numerals
   end
 end
 
-Numerals.convert_integer(1945)
+Numerals.convert_integer(1488)
