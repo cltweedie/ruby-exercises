@@ -32,6 +32,10 @@ class Caesar
     message.each_byte do |letter|
       if letter <= 64 || (letter >= 91 && letter <= 96) || (letter >= 123 && letter <= 126)
         encrypted_message += letter.chr
+      elsif letter >= 65 && letter <= 90
+        reference = letter - 65
+        encrypted_letter = (reference + key) % 26
+        encrypted_message += (encrypted_letter + 65).chr
       else
         reference = letter - 97                           # subtract 97 to get a 0-25 alphabetical reference for the number
         encrypted_letter = (reference + key) % 26         # add the key, then modulus 26 to wrap around the alphabet
@@ -47,6 +51,10 @@ class Caesar
     message.each_byte do |letter|
       if letter <= 64 || (letter >= 91 && letter <= 96) || (letter >= 123 && letter <= 126)
         print letter.chr
+      elsif letter >= 65 && letter <= 90
+        reference = letter - 65
+        letter = (reference - key) % 26
+        print (letter + 65).chr
       else
         reference = letter - 97
         letter = (reference - key) % 26
