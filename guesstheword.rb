@@ -8,6 +8,7 @@ class Game
     @won = false
     @wrong_answers_left = 10
     @correct_guesses = 0
+    @guessed_letters = []
     self.setup
     self.print_board
     while  !@game_over && !@won
@@ -16,6 +17,7 @@ class Game
       if @wrong_answers_left == 0
         @game_over = true
         puts "\nGAME OVER! THE WORD WAS #{@word.upcase}!\n"
+        puts " "
       end
       if @correct_guesses >= @word.length
         @won = true
@@ -48,7 +50,12 @@ class Game
     puts " "
     print "Enter a letter to guess: "
     guess = gets.chomp
-    self.check_letter(guess)
+    if @guessed_letters.include?(guess) == false
+      @guessed_letters.push(guess)
+      self.check_letter(guess)
+    else
+      puts "\nYou already guessed that letter!"
+    end
   end
 
   def self.check_letter(guess)
