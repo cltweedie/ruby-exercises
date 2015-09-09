@@ -1,7 +1,3 @@
-# classes: board, peg, solution
-
-# board must store the history of guesses etc
-
 module Mastermind
 
   COLORS = ["R", "O", "Y", "G", "B", "I"]
@@ -29,6 +25,7 @@ module Mastermind
         check_guess(guess)
         @turn += 1
       end
+      puts "GAME OVER"
     end
 
     def intro
@@ -44,10 +41,14 @@ module Mastermind
     def check_guess(guess)
       @correct = 0
       guess.each_index do |i|
-        puts "Checking #{guess[i]}"
+        puts "Checking Peg #{i+1}: Guess: #{guess[i]}"
         if guess[i] == @comp.solution[i]
           @correct += 1
-          puts "#{guess[i]} is the correct peg in the correct place."
+          puts "#{guess[i]} is CORRECT!"
+        elsif @comp.solution.any? { |peg| peg == guess[i] }
+          puts "#{guess[i]} is not correct. But there is a peg of this color somewhere..."
+        else
+          puts "#{guess[i]} is incorrect."
         end
       end
       if @correct == 4
@@ -66,7 +67,6 @@ module Mastermind
     def initialize
       @solution = []
       4.times { @solution << COLORS[rand(0..COLORS.length-1)] }
-      puts @solution
     end
 
   end
